@@ -3,6 +3,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+# function to run DCV at the current perspective and return a response when done 
 @app.route('/validate', methods=['POST'])
 def validate():
     data = request.json
@@ -12,9 +13,11 @@ def validate():
     # ping the domain through an http get request 
     try: 
         response = requests.get(f"http://{domain}/?token={token}", timeout=30)
-        return response.text    
-    except requests.RequestException:
-        return None  # Return None (null in JSON) if the request fails or times out
+        response.raise_for_status() 
+        return {"status_code": response.status_code}, 200 
+    except requests.RequestException as e:
+        return {"error": str(e)}, 400
+
 
 
 if __name__ == '__main__':
