@@ -1,4 +1,6 @@
-# file added only to the main/central perspective that acts as an endpoint to communicate with
+# this file is added only to the main/central perspective which acts as an endpoint for the user communicate with
+# it triggers DCV at all other perspectives and itself
+
 import requests
 from flask import Flask, request
 from concurrent.futures import ThreadPoolExecutor
