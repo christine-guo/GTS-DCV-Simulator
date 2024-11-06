@@ -1,6 +1,5 @@
-# file added to all perspectives but the central one
 import requests
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -9,16 +8,23 @@ app = Flask(__name__)
 def validate():
     data = request.json
     domain = data.get('domain')
+    datacenter = data.get('datacenter')
     token = data.get('token')
 
-    # ping the domain through an http get request 
-    try: 
-        response = requests.get(f"http://{domain}/?token={token}", timeout=30)
-        response.raise_for_status() 
-        return {"status_code": response.status_code}, 200 
-    except requests.RequestException as e:
-        return {"error": str(e)}, 400
+    json_data = {
+        "domain": domain, 
+        "token": token, 
+        "datacenter": datacenter
+    }
 
+    # ping the domain through an http post request 
+    try: 
+        response = requests.post(f"http://{domain}/dcv", json = json_data, timeout=30)
+        return {"status_code": response.status_code}, 200  
+    except requests.exceptions.Timeout as e:
+        return {"timeout": str(e)}, 408  
+    except requests.exceptions.RequestException as e:
+        return {"request failed": str(e)}, 500  
 
 
 if __name__ == '__main__':
