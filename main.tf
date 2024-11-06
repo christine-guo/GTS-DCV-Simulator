@@ -261,7 +261,8 @@ resource "google_compute_firewall" "flask" {
 
 # Output external IP addresses for all VMs
 output "Web-server-VM-URLs" {
-  value = [
+  value = zipmap(
+    [
     join("", ["http://", google_compute_instance.vm_us_east.network_interface.0.access_config.0.nat_ip, ":5000"]),
     join("", ["http://", google_compute_instance.vm_us_central1.network_interface.0.access_config.0.nat_ip, ":5000"]),
     join("", ["http://", google_compute_instance.vm_us_west.network_interface.0.access_config.0.nat_ip, ":5000"]),
@@ -269,5 +270,15 @@ output "Web-server-VM-URLs" {
     join("", ["http://", google_compute_instance.vm_europe_north.network_interface.0.access_config.0.nat_ip, ":5000"]),
     join("", ["http://", google_compute_instance.vm_asia_east.network_interface.0.access_config.0.nat_ip, ":5000"]),
     join("", ["http://", google_compute_instance.vm_asia_southeast.network_interface.0.access_config.0.nat_ip, ":5000"])
+  ],
+  [
+  "us-east1-b", 
+  "us-central1-a",
+  "us-west1-a", 
+  "europe-west1-b", 
+  "europe-north1-a", 
+  "asia-east1-a", 
+  "asia-southeast1-a"
   ]
+  )
 }
