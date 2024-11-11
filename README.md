@@ -33,8 +33,8 @@ Run the following command to execute DCV on a given domain (here example.com is 
 ```
   - Optional Query Parameters
     - "token": unique token to track http request in logs  
-    - "node_a": unique identifier of victim node (used to track any errors during attacks) 
-    - "node_b": unique identifier of attack node (used to track any errors during attacks) 
+    - "node_a": unique identifier of the first node (used to track any errors during attacks) 
+    - "node_b": unique identifier of the second node (used to track any errors during attacks) 
 
 
 ## CA Removal 
