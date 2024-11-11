@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set Google Cloud project (replace with your actual project ID)
-PROJECT_ID="alert-rain-435902-u0"
+PROJECT_ID="gcp-std-testing-v2"
 gcloud config set project $PROJECT_ID
 
 # Define VMs and their corresponding zones
