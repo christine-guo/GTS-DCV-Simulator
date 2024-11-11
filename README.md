@@ -9,6 +9,12 @@ Because the simulation uses 7 GCP VMs, Google cloud shell is used for deployment
     - Take note of your project ID: in this example, the project ID is alert-rain-435902-u0. Replace all instances of this ID in deploy.sh and terraform.tfstate with yours.
     - Download a copy of this repo into your project
 2.  **Deploy VMs and their respective app**
+    - OPTIONAL: if you want to change the VM routing tier from premium (default) to standard, add the following line to main.tf
+      ```bash
+        resource "google_compute_project_default_network_tier" "default" {
+            network_tier = "STANDARD"
+        }
+      ```
     - Run the following line to deploy the VMs:
       ```bash
         terraform apply
