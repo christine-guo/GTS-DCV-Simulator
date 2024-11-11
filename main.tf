@@ -5,6 +5,10 @@ resource "google_compute_network" "vpc_network" {
   mtu                     = 1460
 }
 
+resource "google_compute_project_default_network_tier" "default" {
+  network_tier = "STANDARD"
+}
+
 # Subnetworks for each region
 
 # Subnetwork for VM in us-east1
