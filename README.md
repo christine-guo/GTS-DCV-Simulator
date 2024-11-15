@@ -38,7 +38,7 @@ Run the following command to execute DCV on a given domain (here example.com is 
 
 ## Logging 
 Within the central VM, you can track all attacks through the test_error (internal server errors) and test_summary (all dcv requests) folders. 
-    - All attacks are logged in the format "{node_a}_{node_b}.log"
+  - All attacks are logged in the format "{node_a}_{node_b}.log"
 
 
 ## CA Removal 
