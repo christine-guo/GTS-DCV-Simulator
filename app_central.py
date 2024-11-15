@@ -13,8 +13,8 @@ error_folder_path = os.path.join(home_directory, 'test_errors')
 
 # dictionary of all VM URLs + datacenters [need to manually edit w/ each deployment]
 all_vms = {
-  "http://35.207.22.20:5000": "us-east1-b",
-  "http://35.208.84.40:5000": "us-central1-a"
+  "http://35.208.242.151:5000": "us-central1-a",
+  "http://35.211.193.182:5000": "us-east1-b"
 }
 
 
@@ -62,25 +62,26 @@ def runAll():
                 server_error_flag = True
                 exc_message = f"error processing request at {datacenter}"
                 errors.append(f"{exc_message}\nexception: {str(e)}")
-                # log exceptions to a file   
+                # log all internal server errors in the test_error folder  
                 with open(error_file_path, 'a') as error_log:
                     now = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + 'Z'
-                    error_log.write(f"\n {now} {token} {exc_message}\n")
+                    error_log.write(f"{now} token: {token} {exc_message}\n")
                     traceback.print_exception(type(e), e, e.__traceback__, file=error_log)
 
+    # log all attacks in the test_summary folder
     with open(summary_file_path, 'a') as summary_log: 
         now = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + 'Z' 
         if server_error_flag:
             message = {"errors": errors, "message": "internal server error occurred"}
-            summary_log.write(f"\t{now} token: {token} {message}\n")
+            summary_log.write(f"{now} token: {token} 501: {errors}\n")
             return jsonify(message), 501 
         if errors:
             message = {"errors": errors, "message": "DCV failed at some perspectives"}
-            summary_log.write(f"\t{now} token: {token} {message}\n")
+            summary_log.write(f"{now} token: {token} 500: {errors}\n")
             return jsonify(message), 500 
         else:
             message = {"message": "DCV completed at all 7 GCP perspectives!"}
-            summary_log.write(f"\t{now} token: {token} {message}\n")
+            summary_log.write(f"{now} token: {token} 200\n")
             return jsonify(message), 200 
 
 # function to run DCV at the current perspective and return a response when done 
