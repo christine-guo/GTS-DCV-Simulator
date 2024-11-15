@@ -1,22 +1,20 @@
 import requests
 from flask import Flask, request, jsonify
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
 import traceback
 import os
 
 app = Flask(__name__)
 
-LOG_DIR = '/var/log/apache2/'
+home_directory = os.path.expanduser("~")
+summary_folder_path = os.path.join(home_directory, 'test_summary')
+error_folder_path = os.path.join(home_directory, 'test_errors')
 
 # dictionary of all VM URLs + datacenters [need to manually edit w/ each deployment]
 all_vms = {
-  "http://34.140.253.68:5000": "europe-west1-b",
-  "http://34.142.163.236:5000": "asia-southeast1-a",
-  "http://34.168.191.142:5000": "us-west1-a",
-  "http://34.57.213.209:5000": "us-central1-a",
-  "http://34.88.96.91:5000": "europe-north1-a",
-  "http://35.190.158.103:5000": "us-east1-b",
-  "http://35.229.155.24:5000": "asia-east1-a",
+  "http://35.207.22.20:5000": "us-east1-b",
+  "http://35.208.84.40:5000": "us-central1-a"
 }
 
 
@@ -48,6 +46,9 @@ def runAll():
     errors = []
     server_error_flag = False
 
+    summary_file_path = os.path.join(summary_folder_path, f"{node_a}_{node_b}.log")
+    error_file_path = os.path.join(error_folder_path, f"{node_a}_{node_b}.log")
+
     # send DCV requests to all VMs and wait for their completion
     with ThreadPoolExecutor() as executor:
         futures = {executor.submit(send_request, vm_url, domain, datacenter, token): (vm_url, datacenter) for vm_url, datacenter in all_vms.items()}
@@ -61,18 +62,26 @@ def runAll():
                 server_error_flag = True
                 exc_message = f"error processing request at {datacenter}"
                 errors.append(f"{exc_message}\nexception: {str(e)}")
-                # log exceptions to a file 
-                log_file_path = LOG_DIR + f"{node_a}_{node_b}.log"  
-                with open(log_file_path, 'a') as log_file:
-                    log_file.write(f"\n {exc_message}\n")
-                    traceback.print_exception(type(e), e, e.__traceback__, file=log_file)
-                
-    if server_error_flag:
-        return jsonify({"errors": errors, "message": "internal server error occurred"}), 501 
-    if errors:
-        return jsonify({"errors": errors, "message": "DCV failed at some perspectives"}), 500
-    else:
-        return jsonify({"message": "DCV completed at all 7 GCP perspectives!"}), 200
+                # log exceptions to a file   
+                with open(error_file_path, 'a') as error_log:
+                    now = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + 'Z'
+                    error_log.write(f"\n {now} {token} {exc_message}\n")
+                    traceback.print_exception(type(e), e, e.__traceback__, file=error_log)
+
+    with open(summary_file_path, 'a') as summary_log: 
+        now = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + 'Z' 
+        if server_error_flag:
+            message = {"errors": errors, "message": "internal server error occurred"}
+            summary_log.write(f"\t{now} token: {token} {message}\n")
+            return jsonify(message), 501 
+        if errors:
+            message = {"errors": errors, "message": "DCV failed at some perspectives"}
+            summary_log.write(f"\t{now} token: {token} {message}\n")
+            return jsonify(message), 500 
+        else:
+            message = {"message": "DCV completed at all 7 GCP perspectives!"}
+            summary_log.write(f"\t{now} token: {token} {message}\n")
+            return jsonify(message), 200 
 
 # function to run DCV at the current perspective and return a response when done 
 @app.route('/validate', methods=['POST'])
@@ -101,5 +110,7 @@ def validate():
 
 
 if __name__ == '__main__':
+    os.makedirs(summary_folder_path, exist_ok=True)
+    os.makedirs(error_folder_path, exist_ok=True)
     app.run(host='0.0.0.0', port=5000)
 
