@@ -34,7 +34,11 @@ Run the following command to execute DCV on a given domain (here example.com is 
   - Optional Query Parameters
     - "token": unique token to track http request in logs  
     - "node_a": unique identifier of the first node (used to track any errors during attacks) 
-    - "node_b": unique identifier of the second node (used to track any errors during attacks) 
+    - "node_b": unique identifier of the second node (used to track any errors during attacks)
+
+## Logging 
+Within the central VM, you can track all attacks through the test_error (internal server errors) and test_summary (all dcv requests) folders. 
+    - All attacks are logged in the format "{node_a}_{node_b}.log"
 
 
 ## CA Removal 
