@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set Google Cloud project (replace with your actual project ID)
-PROJECT_ID="gcp-std-testing-v2"
+PROJECT_ID="gcp-testing2-438421"
 gcloud config set project $PROJECT_ID
 
 # Define VMs and their corresponding zones
@@ -31,36 +31,34 @@ if [ ! -f "$APP_CENTRAL_FILE" ]; then
   exit 1
 fi
 
-
 # Loop through each VM, transfer the app.py file, and run the Flask app concurrently
 for INSTANCE_NAME in "${!VMS_ZONES[@]}"; do
-  ZONE=${VMS_ZONES[$INSTANCE_NAME]}
+    ZONE=${VMS_ZONES[$INSTANCE_NAME]}
+    (
+        echo "Starting setup for $INSTANCE_NAME in zone $ZONE"
 
-  # Run the operations in the background
-  (
-    if [ "$INSTANCE_NAME" == "flask-vm-us-east" ]; then
-      # make first VM instance the central node 
-      # transfer APP_CENTRAL_FILE
-      echo "This is the first instance: $INSTANCE_NAME in zone $ZONE"
-      gcloud compute scp $APP_CENTRAL_FILE $INSTANCE_NAME:/tmp/ --zone=$ZONE
-      # rename file 
-      gcloud compute ssh $INSTANCE_NAME --zone=$ZONE --command="mv /tmp/$APP_CENTRAL_FILE /tmp/app.py"
-    else
-      # for all other instances, transfer APP_FILE instead
-      echo "Transferring $APP_FILE to $INSTANCE_NAME in zone $ZONE..."
-      gcloud compute scp $APP_FILE $INSTANCE_NAME:/tmp/ --zone=$ZONE
-    fi
-    # Ensure Flask is installed on the VM
-    echo "Ensuring Flask is installed on $INSTANCE_NAME..."
-    gcloud compute ssh $INSTANCE_NAME --zone=$ZONE --command="pip3 show flask || sudo pip3 install flask"
+        # Kill any existing Flask processes
+        echo "Killing any existing Flask processes on $INSTANCE_NAME..."
+        gcloud compute ssh $INSTANCE_NAME --zone=$ZONE --command="sudo pkill -f 'python3.*app.py'"
+        sleep 2  # Optional: Add a short sleep to ensure the processes are properly killed
 
-    echo "Running Flask app on $INSTANCE_NAME..."
-    gcloud compute ssh $INSTANCE_NAME --zone=$ZONE --command="cd /tmp/ && nohup python3 app.py --host=0.0.0.0 > /dev/null 2>&1 &"
-  ) &
+        # Transfer the correct Flask app file to the VM
+        if [ "$INSTANCE_NAME" == "flask-vm-us-east" ]; then
+            echo "Transferring $APP_CENTRAL_FILE to $INSTANCE_NAME in zone $ZONE..."
+            gcloud compute scp $APP_CENTRAL_FILE $INSTANCE_NAME:/tmp/ --zone=$ZONE
+            gcloud compute ssh $INSTANCE_NAME --zone=$ZONE --command="mv /tmp/$APP_CENTRAL_FILE /tmp/$APP_FILE"
+        else
+            echo "Transferring $APP_FILE to $INSTANCE_NAME in zone $ZONE..."
+            gcloud compute scp $APP_FILE $INSTANCE_NAME:/tmp/ --zone=$ZONE
+        fi
+
+        # Run the new Flask app on the VM
+        echo "Running Flask app on $INSTANCE_NAME..."
+        gcloud compute ssh $INSTANCE_NAME --zone=$ZONE --command="cd /tmp/ && nohup python3 $APP_FILE --host=0.0.0.0" 
+
+    ) &
 
 done
-
-
 
 # Wait for all background jobs to finish
 wait
