@@ -25,6 +25,8 @@ Because the simulation uses 7 GCP VMs, Google cloud shell is used for deployment
       ```bash
         ./deploy.sh
       ```
+    - If you want to update the app files, just run the above command again to kill any previous app processes and run the new file
+
 
 ## How to run DCV
 Run the following command to execute DCV on a given domain (here example.com is used) 
