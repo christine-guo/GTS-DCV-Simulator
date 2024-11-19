@@ -23,26 +23,24 @@ APP_CENTRAL_FILE="app_central.py"
 # Check if files exist
 if [ ! -f "$APP_FILE" ]; then
   echo "Error: $APP_FILE not found!"
-  exit 1
 fi 
 
 if [ ! -f "$APP_CENTRAL_FILE" ]; then
   echo "Error: $APP_CENTRAL_FILE not found!"
-  exit 1
 fi
 
-# Loop through each VM, transfer the app.py file, and run the Flask app concurrently
+# loop through each VM, transfer the app.py file, and run the Flask app concurrently
 for INSTANCE_NAME in "${!VMS_ZONES[@]}"; do
     ZONE=${VMS_ZONES[$INSTANCE_NAME]}
     (
         echo "Starting setup for $INSTANCE_NAME in zone $ZONE"
 
-        # Kill any existing Flask processes
+        # kill any existing Flask processes
         echo "Killing any existing Flask processes on $INSTANCE_NAME..."
         gcloud compute ssh $INSTANCE_NAME --zone=$ZONE --command="sudo pkill -f 'python3.*app.py'"
-        sleep 2  # Optional: Add a short sleep to ensure the processes are properly killed
+        sleep 2  # add a short sleep to ensure the processes are properly killed
 
-        # Transfer the correct Flask app file to the VM
+        # transfer the correct Flask app file to the VM
         if [ "$INSTANCE_NAME" == "flask-vm-us-east" ]; then
             echo "Transferring $APP_CENTRAL_FILE to $INSTANCE_NAME in zone $ZONE..."
             gcloud compute scp $APP_CENTRAL_FILE $INSTANCE_NAME:/tmp/ --zone=$ZONE
@@ -52,7 +50,7 @@ for INSTANCE_NAME in "${!VMS_ZONES[@]}"; do
             gcloud compute scp $APP_FILE $INSTANCE_NAME:/tmp/ --zone=$ZONE
         fi
 
-        # Run the new Flask app on the VM
+        # run the new Flask app on the VM
         echo "Running Flask app on $INSTANCE_NAME..."
         gcloud compute ssh $INSTANCE_NAME --zone=$ZONE --command="cd /tmp/ && nohup python3 $APP_FILE --host=0.0.0.0" 
 
