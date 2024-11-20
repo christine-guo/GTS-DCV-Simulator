@@ -10,16 +10,10 @@ def validate():
     domain = data.get('domain')
     datacenter = data.get('datacenter')
     token = data.get('token')
-
-    json_data = {
-        "domain": domain, 
-        "token": token, 
-        "datacenter": datacenter
-    }
-
+    
     # ping the domain through an http post request 
     try: 
-        response = requests.post(f"http://{domain}/dcv", json = json_data, timeout=30)
+        response = requests.get(f"http://{domain}/.well-known/gca-challenge/{token}?datacenter={datacenter}", timeout=30)
         return {"status_code": response.status_code}, 200  
     except requests.exceptions.Timeout as e:
         return {"timeout": str(e)}, 408  
