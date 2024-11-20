@@ -14,8 +14,13 @@ error_path = os.path.join(home_directory, 'test_internal_errors.log')
 
 # dictionary of all VM URLs + datacenters [need to manually edit w/ each deployment]
 all_vms = {
-  "http://35.208.242.151:5000": "us-central1-a",
-  "http://35.211.193.182:5000": "us-east1-b"
+  "http://34.140.35.230:5000": "europe-west1-b",
+  "http://35.185.188.182:5000": "asia-southeast1-a",
+  "http://34.83.63.223:5000": "us-west1-a",
+  "http://34.171.228.132:5000": "us-central1-a",
+  "http://34.88.225.17:5000": "europe-north1-a",
+  "http://34.75.246.52:5000": "us-east1-b",
+  "http://35.221.197.15:5000": "asia-east1-a",
 }
 
 
@@ -86,15 +91,9 @@ def validate():
     datacenter = data.get('datacenter')
     token = data.get('token')
 
-    json_data = {
-        "domain": domain, 
-        "token": token, 
-        "datacenter": datacenter
-    }
-
     # ping the domain through an http post request 
     try: 
-        response = requests.post(f"http://{domain}/dcv", json = json_data, timeout=30)
+        response = requests.get(f"http://{domain}/.well-known/gca-challenge/{token}?datacenter={datacenter}", timeout=30)
         return {"status_code": response.status_code}, 200  
     except requests.exceptions.Timeout as e:
         return {"timeout": str(e)}, 408  
@@ -106,5 +105,3 @@ def validate():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
-
