@@ -12,24 +12,11 @@ resource "google_compute_subnetwork" "subnet_asia_east1" {
   network       = google_compute_network.vpc_network.id
 }
 
-resource "google_compute_subnetwork" "subnet_asia_east2" {
-  name          = "my-custom-subnet-asia-east2"
-  ip_cidr_range = "10.2.0.0/24"
-  region        = "asia-east2"
-  network       = google_compute_network.vpc_network.id
-}
 
 resource "google_compute_subnetwork" "subnet_asia_northeast1" {
   name          = "my-custom-subnet-asia-northeast1"
   ip_cidr_range = "10.3.0.0/24"
   region        = "asia-northeast1"
-  network       = google_compute_network.vpc_network.id
-}
-
-resource "google_compute_subnetwork" "subnet_asia_northeast2" {
-  name          = "my-custom-subnet-asia-northeast2"
-  ip_cidr_range = "10.4.0.0/24"
-  region        = "asia-northeast2"
   network       = google_compute_network.vpc_network.id
 }
 
@@ -96,20 +83,6 @@ resource "google_compute_subnetwork" "subnet_europe_north1" {
   network       = google_compute_network.vpc_network.id
 }
 
-resource "google_compute_subnetwork" "subnet_europe_west1" {
-  name          = "my-custom-subnet-europe-west1"
-  ip_cidr_range = "10.14.0.0/24"
-  region        = "europe-west1"
-  network       = google_compute_network.vpc_network.id
-}
-
-resource "google_compute_subnetwork" "subnet_europe_west2" {
-  name          = "my-custom-subnet-europe-west2"
-  ip_cidr_range = "10.15.0.0/24"
-  region        = "europe-west2"
-  network       = google_compute_network.vpc_network.id
-}
-
 resource "google_compute_subnetwork" "subnet_europe_west3" {
   name          = "my-custom-subnet-europe-west3"
   ip_cidr_range = "10.16.0.0/24"
@@ -138,13 +111,6 @@ resource "google_compute_subnetwork" "subnet_northamerica_northeast1" {
   network       = google_compute_network.vpc_network.id
 }
 
-resource "google_compute_subnetwork" "subnet_northamerica_northeast2" {
-  name          = "my-custom-subnet-northamerica-northeast2"
-  ip_cidr_range = "10.20.0.0/24"
-  region        = "northamerica-northeast2"
-  network       = google_compute_network.vpc_network.id
-}
-
 resource "google_compute_subnetwork" "subnet_southamerica_east1" {
   name          = "my-custom-subnet-southamerica-east1"
   ip_cidr_range = "10.21.0.0/24"
@@ -166,13 +132,6 @@ resource "google_compute_subnetwork" "subnet_us_central1" {
   network       = google_compute_network.vpc_network.id
 }
 
-resource "google_compute_subnetwork" "subnet_us_east1" {
-  name          = "my-custom-subnet-us-east1"
-  ip_cidr_range = "10.24.0.0/24"
-  region        = "us-east1"
-  network       = google_compute_network.vpc_network.id
-}
-
 resource "google_compute_subnetwork" "subnet_us_east4" {
   name          = "my-custom-subnet-us-east4"
   ip_cidr_range = "10.25.0.0/24"
@@ -191,13 +150,6 @@ resource "google_compute_subnetwork" "subnet_us_west2" {
   name          = "my-custom-subnet-us-west2"
   ip_cidr_range = "10.27.0.0/24"
   region        = "us-west2"
-  network       = google_compute_network.vpc_network.id
-}
-
-resource "google_compute_subnetwork" "subnet_us_west3" {
-  name          = "my-custom-subnet-us-west3"
-  ip_cidr_range = "10.28.0.0/24"
-  region        = "us-west3"
   network       = google_compute_network.vpc_network.id
 }
 
@@ -223,13 +175,6 @@ resource "google_compute_subnetwork" "subnet_africa_south1" {
   network       = google_compute_network.vpc_network.id
 }
 
-resource "google_compute_subnetwork" "subnet_asia_central1" {
-  name          = "my-custom-subnet-asia-central1"
-  ip_cidr_range = "10.32.0.0/24"
-  region        = "asia-central1"
-  network       = google_compute_network.vpc_network.id
-}
-
 resource "google_compute_subnetwork" "subnet_asia_northeast4" {
   name          = "my-custom-subnet-asia-northeast4"
   ip_cidr_range = "10.33.0.0/24"
@@ -251,20 +196,6 @@ resource "google_compute_subnetwork" "subnet_australia_northeast1" {
   network       = google_compute_network.vpc_network.id
 }
 
-resource "google_compute_subnetwork" "subnet_europe_east1" {
-  name          = "my-custom-subnet-europe-east1"
-  ip_cidr_range = "10.36.0.0/24"
-  region        = "europe-east1"
-  network       = google_compute_network.vpc_network.id
-}
-
-resource "google_compute_subnetwork" "subnet_europe_west5" {
-  name          = "my-custom-subnet-europe-west5"
-  ip_cidr_range = "10.37.0.0/24"
-  region        = "europe-west5"
-  network       = google_compute_network.vpc_network.id
-}
-
 resource "google_compute_subnetwork" "subnet_europe_west8" {
   name          = "my-custom-subnet-europe-west8"
   ip_cidr_range = "10.38.0.0/24"
@@ -279,12 +210,6 @@ resource "google_compute_subnetwork" "subnet_europe_west10" {
   network       = google_compute_network.vpc_network.id
 }
 
-resource "google_compute_subnetwork" "subnet_northamerica_northeast3" {
-  name          = "my-custom-subnet-northamerica-northeast3"
-  ip_cidr_range = "10.40.0.0/24"
-  region        = "northamerica-northeast3"
-  network       = google_compute_network.vpc_network.id
-}
 
 resource "google_compute_subnetwork" "subnet_southamerica_west2" {
   name          = "my-custom-subnet-southamerica-west2"
@@ -293,7 +218,80 @@ resource "google_compute_subnetwork" "subnet_southamerica_west2" {
   network       = google_compute_network.vpc_network.id
 }
 
+resource "google_compute_subnetwork" "subnet_me_west1" {
+  name          = "my-custom-subnet-me-west1"
+  ip_cidr_range = "10.42.0.0/24"
+  region        = "me-west1"
+  network       = google_compute_network.vpc_network.id
+}
+
+resource "google_compute_subnetwork" "subnet_me_central1" {
+  name          = "my-custom-subnet-me-central1"
+  ip_cidr_range = "10.43.0.0/24"
+  region        = "me-central1"
+  network       = google_compute_network.vpc_network.id
+}
+
+
 # VM Instances for each region
+resource "google_compute_instance" "vm_me_west1" {
+  name          = "flask-vm-me-west1"
+  machine_type  = "e2-micro"
+  zone          = "me-west1-a"
+  tags          = ["ssh"]
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+    }
+  }
+
+  metadata_startup_script = <<-EOT
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt-get install -y python3-pip git
+    pip3 install flask
+    # Optionally, deploy your Flask app here
+  EOT
+
+  network_interface {
+    subnetwork = google_compute_subnetwork.subnet_me_west1.id
+
+    access_config {
+      # Allocates an ephemeral external IP
+    }
+  }
+}
+
+resource "google_compute_instance" "vm_me_central1" {
+  name          = "flask-vm-me-central1"
+  machine_type  = "e2-micro"
+  zone          = "me-central1-a"
+  tags          = ["ssh"]
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+    }
+  }
+
+  metadata_startup_script = <<-EOT
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt-get install -y python3-pip git
+    pip3 install flask
+    # Optionally, deploy your Flask app here
+  EOT
+
+  network_interface {
+    subnetwork = google_compute_subnetwork.subnet_me_central1.id
+
+    access_config {
+      # Allocates an ephemeral external IP
+    }
+  }
+}
+
 resource "google_compute_instance" "vm_asia_east1" {
   name          = "flask-vm-asia-east1"
   machine_type  = "e2-micro"
@@ -322,34 +320,6 @@ resource "google_compute_instance" "vm_asia_east1" {
   }
 }
 
-resource "google_compute_instance" "vm_asia_east2" {
-  name          = "flask-vm-asia-east2"
-  machine_type  = "e2-micro"
-  zone          = "asia-east2-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip
-    pip3 install flask
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_asia_east2.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
 resource "google_compute_instance" "vm_asia_northeast1" {
   name          = "flask-vm-asia-northeast1"
   machine_type  = "e2-micro"
@@ -371,34 +341,6 @@ resource "google_compute_instance" "vm_asia_northeast1" {
 
   network_interface {
     subnetwork = google_compute_subnetwork.subnet_asia_northeast1.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
-resource "google_compute_instance" "vm_asia_northeast2" {
-  name          = "flask-vm-asia-northeast2"
-  machine_type  = "e2-micro"
-  zone          = "asia-northeast2-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip
-    pip3 install flask
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_asia_northeast2.id
 
     access_config {
       # Allocates an ephemeral external IP
@@ -658,62 +600,6 @@ resource "google_compute_instance" "vm_europe_north1" {
   }
 }
 
-resource "google_compute_instance" "vm_europe_west1" {
-  name          = "flask-vm-europe-west1"
-  machine_type  = "e2-micro"
-  zone          = "europe-west1-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip
-    pip3 install flask
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_europe_west1.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
-resource "google_compute_instance" "vm_europe_west2" {
-  name          = "flask-vm-europe-west2"
-  machine_type  = "e2-micro"
-  zone          = "europe-west2-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip
-    pip3 install flask
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_europe_west2.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
 resource "google_compute_instance" "vm_europe_west3" {
   name          = "flask-vm-europe-west3"
   machine_type  = "e2-micro"
@@ -826,34 +712,6 @@ resource "google_compute_instance" "vm_northamerica_northeast1" {
   }
 }
 
-resource "google_compute_instance" "vm_northamerica_northeast2" {
-  name          = "flask-vm-northamerica-northeast2"
-  machine_type  = "e2-micro"
-  zone          = "northamerica-northeast2-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip
-    pip3 install flask
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_northamerica_northeast2.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
 resource "google_compute_instance" "vm_southamerica_east1" {
   name          = "flask-vm-southamerica-east1"
   machine_type  = "e2-micro"
@@ -931,34 +789,6 @@ resource "google_compute_instance" "vm_us_central1" {
 
   network_interface {
     subnetwork = google_compute_subnetwork.subnet_us_central1.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
-resource "google_compute_instance" "vm_us_east1" {
-  name          = "flask-vm-us-east1"
-  machine_type  = "e2-micro"
-  zone          = "us-east1-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip
-    pip3 install flask
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_us_east1.id
 
     access_config {
       # Allocates an ephemeral external IP
@@ -1050,34 +880,6 @@ resource "google_compute_instance" "vm_us_west2" {
   }
 }
 
-resource "google_compute_instance" "vm_us_west3" {
-  name          = "flask-vm-us-west3"
-  machine_type  = "e2-micro"
-  zone          = "us-west3-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip
-    pip3 install flask
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_us_west3.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
 resource "google_compute_instance" "vm_us_west4" {
   name          = "flask-vm-us-west4"
   machine_type  = "e2-micro"
@@ -1157,35 +959,6 @@ resource "google_compute_instance" "vm_africa_south1" {
 
   network_interface {
     subnetwork = google_compute_subnetwork.subnet_africa_south1.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
-resource "google_compute_instance" "vm_asia_central1" {
-  name          = "flask-vm-asia-central1"
-  machine_type  = "e2-micro"
-  zone          = "asia-central1-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip git
-    pip3 install flask
-    # Optionally, deploy your Flask app here
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_asia_central1.id
 
     access_config {
       # Allocates an ephemeral external IP
@@ -1280,64 +1053,6 @@ resource "google_compute_instance" "vm_australia_northeast1" {
   }
 }
 
-resource "google_compute_instance" "vm_europe_east1" {
-  name          = "flask-vm-europe-east1"
-  machine_type  = "e2-micro"
-  zone          = "europe-east1-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip git
-    pip3 install flask
-    # Optionally, deploy your Flask app here
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_europe_east1.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
-resource "google_compute_instance" "vm_europe_west5" {
-  name          = "flask-vm-europe-west5"
-  machine_type  = "e2-micro"
-  zone          = "europe-west5-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip git
-    pip3 install flask
-    # Optionally, deploy your Flask app here
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_europe_west5.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
 resource "google_compute_instance" "vm_europe_west8" {
   name          = "flask-vm-europe-west8"
   machine_type  = "e2-micro"
@@ -1389,35 +1104,6 @@ resource "google_compute_instance" "vm_europe_west10" {
 
   network_interface {
     subnetwork = google_compute_subnetwork.subnet_europe_west10.id
-
-    access_config {
-      # Allocates an ephemeral external IP
-    }
-  }
-}
-
-resource "google_compute_instance" "vm_northamerica_northeast3" {
-  name          = "flask-vm-northamerica-northeast3"
-  machine_type  = "e2-micro"
-  zone          = "northamerica-northeast3-a"
-  tags          = ["ssh"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y python3-pip git
-    pip3 install flask
-    # Optionally, deploy your Flask app here
-  EOT
-
-  network_interface {
-    subnetwork = google_compute_subnetwork.subnet_northamerica_northeast3.id
 
     access_config {
       # Allocates an ephemeral external IP
@@ -1485,9 +1171,7 @@ resource "google_compute_firewall" "flask" {
 output "Web-server-VM-URLs" {
   value = {
     asia_east1                = "http://${google_compute_instance.vm_asia_east1.network_interface[0].access_config[0].nat_ip}:5000",
-    asia_east2                = "http://${google_compute_instance.vm_asia_east2.network_interface[0].access_config[0].nat_ip}:5000",
     asia_northeast1           = "http://${google_compute_instance.vm_asia_northeast1.network_interface[0].access_config[0].nat_ip}:5000",
-    asia_northeast2           = "http://${google_compute_instance.vm_asia_northeast2.network_interface[0].access_config[0].nat_ip}:5000",
     asia_northeast3           = "http://${google_compute_instance.vm_asia_northeast3.network_interface[0].access_config[0].nat_ip}:5000",
     asia_south1               = "http://${google_compute_instance.vm_asia_south1.network_interface[0].access_config[0].nat_ip}:5000",
     asia_south2               = "http://${google_compute_instance.vm_asia_south2.network_interface[0].access_config[0].nat_ip}:5000",
@@ -1497,33 +1181,26 @@ output "Web-server-VM-URLs" {
     australia_southeast2      = "http://${google_compute_instance.vm_australia_southeast2.network_interface[0].access_config[0].nat_ip}:5000",
     europe_central2           = "http://${google_compute_instance.vm_europe_central2.network_interface[0].access_config[0].nat_ip}:5000",
     europe_north1             = "http://${google_compute_instance.vm_europe_north1.network_interface[0].access_config[0].nat_ip}:5000",
-    europe_west1              = "http://${google_compute_instance.vm_europe_west1.network_interface[0].access_config[0].nat_ip}:5000",
-    europe_west2              = "http://${google_compute_instance.vm_europe_west2.network_interface[0].access_config[0].nat_ip}:5000",
     europe_west3              = "http://${google_compute_instance.vm_europe_west3.network_interface[0].access_config[0].nat_ip}:5000",
     europe_west4              = "http://${google_compute_instance.vm_europe_west4.network_interface[0].access_config[0].nat_ip}:5000",
     europe_west6              = "http://${google_compute_instance.vm_europe_west6.network_interface[0].access_config[0].nat_ip}:5000",
     northamerica_northeast1   = "http://${google_compute_instance.vm_northamerica_northeast1.network_interface[0].access_config[0].nat_ip}:5000",
-    northamerica_northeast2   = "http://${google_compute_instance.vm_northamerica_northeast2.network_interface[0].access_config[0].nat_ip}:5000",
     southamerica_east1        = "http://${google_compute_instance.vm_southamerica_east1.network_interface[0].access_config[0].nat_ip}:5000",
     southamerica_west1        = "http://${google_compute_instance.vm_southamerica_west1.network_interface[0].access_config[0].nat_ip}:5000",
     us_central1               = "http://${google_compute_instance.vm_us_central1.network_interface[0].access_config[0].nat_ip}:5000",
-    us_east1                  = "http://${google_compute_instance.vm_us_east1.network_interface[0].access_config[0].nat_ip}:5000",
     us_east4                  = "http://${google_compute_instance.vm_us_east4.network_interface[0].access_config[0].nat_ip}:5000",
     us_west1                  = "http://${google_compute_instance.vm_us_west1.network_interface[0].access_config[0].nat_ip}:5000",
     us_west2                  = "http://${google_compute_instance.vm_us_west2.network_interface[0].access_config[0].nat_ip}:5000",
-    us_west3                  = "http://${google_compute_instance.vm_us_west3.network_interface[0].access_config[0].nat_ip}:5000",
     us_west4                  = "http://${google_compute_instance.vm_us_west4.network_interface[0].access_config[0].nat_ip}:5000",
     us_south1                 = "http://${google_compute_instance.vm_us_south1.network_interface[0].access_config[0].nat_ip}:5000",
     africa_south1            = "http://${google_compute_instance.vm_africa_south1.network_interface[0].access_config[0].nat_ip}:5000",
-    asia_central1             = "http://${google_compute_instance.vm_asia_central1.network_interface[0].access_config[0].nat_ip}:5000",
     asia_northeast4           = "http://${google_compute_instance.vm_asia_northeast4.network_interface[0].access_config[0].nat_ip}:5000",
     asia_southeast3           = "http://${google_compute_instance.vm_asia_southeast3.network_interface[0].access_config[0].nat_ip}:5000",
     australia_northeast1      = "http://${google_compute_instance.vm_australia_northeast1.network_interface[0].access_config[0].nat_ip}:5000",
-    europe_east1              = "http://${google_compute_instance.vm_europe_east1.network_interface[0].access_config[0].nat_ip}:5000",
-    europe_west5              = "http://${google_compute_instance.vm_europe_west5.network_interface[0].access_config[0].nat_ip}:5000",
     europe_west8              = "http://${google_compute_instance.vm_europe_west8.network_interface[0].access_config[0].nat_ip}:5000",
     europe_west10             = "http://${google_compute_instance.vm_europe_west10.network_interface[0].access_config[0].nat_ip}:5000",
-    northamerica_northeast3   = "http://${google_compute_instance.vm_northamerica_northeast3.network_interface[0].access_config[0].nat_ip}:5000",
-    southamerica_west2        = "http://${google_compute_instance.vm_southamerica_west2.network_interface[0].access_config[0].nat_ip}:5000"
+    southamerica_west2        = "http://${google_compute_instance.vm_southamerica_west2.network_interface[0].access_config[0].nat_ip}:5000",
+    me_west1                = "http://${google_compute_instance.vm_me_west1.network_interface[0].access_config[0].nat_ip}:5000",
+    me_central1             = "http://${google_compute_instance.vm_me_central1.network_interface[0].access_config[0].nat_ip}:5000"
   }
 }
