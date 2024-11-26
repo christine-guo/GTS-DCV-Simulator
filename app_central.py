@@ -118,8 +118,8 @@ def runAll():
         general_logger.debug(f"full dcv completed with status code 501: {errors}\n")
         return jsonify({"message": "internal server error occurred", "errors": errors}), 501 
     if errors:
-        general_logger.debug(f"full dcv completed with status code 207: {errors} \t number of failed vps: {len(errors)}\n")
-        return jsonify({"message": "DCV failed at some perspectives", "number of vps with failed dcv requests": len(errors), "failed vp list": errors}), 207 
+        general_logger.debug(f"full dcv completed with status code 207, failed_vps: {errors}\n")
+        return jsonify({"message": "DCV failed at some perspectives", "failed_vps": errors}), 207 
     else:
         general_logger.debug(f"full dcv completed with status code 200\n")
         return jsonify({"message": "DCV completed at all 40 GCP perspectives!"}), 200 
