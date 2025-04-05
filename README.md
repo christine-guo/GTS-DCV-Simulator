@@ -6,7 +6,7 @@ This codebase simulates domain control validation (DCV) by the Certificate Autho
 ## CA Configuration Setup 
 Because the simulation uses 7 GCP VMs, Google cloud shell is used for deployment. 
 1. **Create a new Google Cloud project**
-    - Take note of your project ID: in this example, the project ID is gcp-std-testing-v2. Replace all instances of this ID in deploy.sh and terraform.tfstate with yours.
+    - Take note of your project ID: in this example, the project ID is gcp-std-testing-v2. Replace all instances of this ID in deploy.sh with yours.
     - Download a copy of this repo into your project
 2.  **Deploy VMs and their respective app**
     - OPTIONAL: if you want to change the VM routing tier from premium (default) to standard, add the following line to main.tf
